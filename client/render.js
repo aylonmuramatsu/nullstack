@@ -1,6 +1,7 @@
-import { sanitizeInnerHtml } from '../shared/sanitizeString'
 import generateTruthyString from '../shared/generateTruthyString'
+import { isSvg } from '../shared/is-svg'
 import { isFalse, isText } from '../shared/nodes'
+import { sanitizeInnerHtml } from '../shared/sanitizeString'
 import { anchorableElement } from './anchorableNode'
 import { generateCallback, generateSubject } from './events'
 import { ref } from './ref'
@@ -16,7 +17,7 @@ export default function render(node, options) {
     return node.element
   }
 
-  const svg = (options && options.svg) || node.type === 'svg'
+  const svg = isSvg(node, options);
 
   if (svg) {
     node.element = document.createElementNS('http://www.w3.org/2000/svg', node.type)
